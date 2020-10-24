@@ -116,9 +116,8 @@ void Touch::idle() {
           NOMORE(y, current_control->y + current_control->height);
           touch(current_control);
         }
-        else {
-          current_control = NULL;
-        }
+        else
+          current_control = nullptr;
       }
       else {
         for (i = 0; i < controls_count; i++) {
@@ -130,7 +129,7 @@ void Touch::idle() {
         }
       }
 
-      if (current_control == NULL)
+      if (!current_control)
         touch_time = now;
     }
     x = _x;
@@ -138,7 +137,7 @@ void Touch::idle() {
   }
   else {
     x = y = 0;
-    current_control = NULL;
+    current_control = nullptr;
     touch_time = 0;
     touch_control_type = NONE;
     time_to_hold = 0;

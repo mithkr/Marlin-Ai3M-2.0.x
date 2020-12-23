@@ -16,7 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 #pragma once
@@ -25,23 +25,30 @@
  * Release version. Leave the Marlin version or apply a custom scheme.
  */
 #ifndef SHORT_BUILD_VERSION
-  #define SHORT_BUILD_VERSION "2.0.5.3"
+  #define SHORT_BUILD_VERSION "2.0.6.1"
 #endif
 
-  /**
-   * Verbose version identifier which should contain a reference to the location
-   * from where the binary was downloaded or the source code was compiled.
-   */
+/**
+ * Verbose version identifier containing a unique identifier, such as the
+ * vendor name, download location, GitHub account, etc.
+ */
+#ifndef DETAILED_BUILD_VERSION
   #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (davidramiro, Github)"
+#endif
 
 /**
  * Defines the version of the Marlin-AI3M build. Not to be confused with
  * Marlin's own build number, e.g. 2.0.x.
  */
- #define CUSTOM_BUILD_VERSION "v2.0.1"
-
+ #define CUSTOM_BUILD_VERSION "v2.0.2"
+ 
+/**
+ * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
+ * here we define this default string as the date where the latest release
+ * version was tagged.
+ */
 #ifndef STRING_DISTRIBUTION_DATE
-  #define STRING_DISTRIBUTION_DATE "2020-03-31"
+  #define STRING_DISTRIBUTION_DATE "2020-12-28"
 #endif
 
 /**
@@ -51,7 +58,7 @@
  * to alert users to major changes.
  */
 
-#define MARLIN_HEX_VERSION 020005
+#define MARLIN_HEX_VERSION 020006
 #ifndef REQUIRED_CONFIGURATION_H_VERSION
   #define REQUIRED_CONFIGURATION_H_VERSION MARLIN_HEX_VERSION
 #endif
@@ -68,18 +75,21 @@
   #define PROTOCOL_VERSION "1.0"
 #endif
 
-  /**
-   * Defines a generic printer name to be output to the LCD after booting Marlin.
-   */
+/**
+ * Define a generic printer name to be output to the LCD after booting Marlin.
+ */
+#ifndef MACHINE_NAME
   #define MACHINE_NAME "Anycubic i3 Mega"
+#endif
 
-  /**
-   * The SOURCE_CODE_URL is the location where users will find the Marlin Source
-   * Code which is installed on the device. In most cases —unless the manufacturer
-   * has a distinct Github fork— the Source Code URL should just be the main
-   * Marlin repository.
-   */
+/**
+ * Website where users can find Marlin source code for the binary installed on the
+ * device. Override this if you provide public source code download. (GPLv3 requires
+ * providing the source code to your customers.)
+ */
+#ifndef SOURCE_CODE_URL
   #define SOURCE_CODE_URL "https://github.com/davidramiro/Marlin-Ai3M-2.0.x"
+#endif
 
 /**
  * Default generic printer UUID.
@@ -93,7 +103,7 @@
    * documentation about a specific Marlin release. Displayed in the Info Menu.
    */
 #ifndef WEBSITE_URL
-  #define WEBSITE_URL "http://marlinfw.org"
+  #define WEBSITE_URL "https://marlinfw.org"
 #endif
 
 /**

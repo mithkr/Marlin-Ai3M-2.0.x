@@ -55,7 +55,7 @@ void plan_arc(const xyze_pos_t &cart, const ab_float_t &offset, const uint8_t cl
 void GcodeSuite::M888() {
 
     // don't do this if the machine is not homed
-    if (axis_unhomed_error()) return;
+    if (homing_needed_error()) return;
 
     // set hotbed temperate to zero
     thermalManager.setTargetBed(0);

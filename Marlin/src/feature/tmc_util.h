@@ -159,7 +159,7 @@ class TMCMarlin<TMC2208Stepper, AXIS_LETTER, DRIVER_ID, AXIS_ID> : public TMC220
       TMC2208Stepper(SerialPort, RS)
       {}
     TMCMarlin(const uint16_t RX, const uint16_t TX, const float RS, const uint8_t, const bool has_rx=true) :
-      TMC2208Stepper(RX, TX, RS, has_rx)
+      TMC2208Stepper(RX, TX, RS)
       {}
     uint16_t rms_current() { return TMC2208Stepper::rms_current(); }
     inline void rms_current(const uint16_t mA) {

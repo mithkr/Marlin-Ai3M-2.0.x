@@ -1001,7 +1001,7 @@
 //#define LCD_TIMEOUT_TO_STATUS 15000
 
 // Add an 'M73' G-code to set the current percentage
-#define LCD_SET_PROGRESS_MANUALLY
+//#define LCD_SET_PROGRESS_MANUALLY
 
 // Show the E position (filament used) during printing
 //#define LCD_SHOW_E_TOTAL
@@ -2034,6 +2034,7 @@
  * To use the reading capabilities, also connect #_SERIAL_RX_PIN to PDN_UART without
  * a resistor.
  * The drivers can also be used with hardware serial.
+ * If used with software serial, RX and TX pin can be the same and directly connected to PDN_UART pin.
  *
  * TMCStepper library is required to use TMC stepper drivers.
  * https://github.com/teemuatlut/TMCStepper
@@ -2396,13 +2397,13 @@
   #define Y_SERIAL_TX_PIN  12
   #define Y_SERIAL_RX_PIN  12
 
-  #define Z_SERIAL_TX_PIN  -1
-  #define Z_SERIAL_RX_PIN  -1
-  #define Z2_SERIAL_TX_PIN -1
-  #define Z2_SERIAL_RX_PIN -1
+  #define Z_SERIAL_TX_PIN  20
+  #define Z_SERIAL_RX_PIN  20
+  #define Z2_SERIAL_TX_PIN  4
+  #define Z2_SERIAL_RX_PIN  4
 
-  #define E0_SERIAL_TX_PIN -1
-  #define E0_SERIAL_RX_PIN -1
+  #define E0_SERIAL_TX_PIN 21
+  #define E0_SERIAL_RX_PIN 21
 
 #endif // HAS_TRINAMIC_CONFIG
 

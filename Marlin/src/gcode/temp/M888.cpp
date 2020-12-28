@@ -38,7 +38,7 @@
 #endif
 
 ab_float_t cooldown_arc = { 50, 50 };
-const uint8_t cooldown_target = _MAX((parser.ushortval('T', 30)), 15);
+const uint8_t cooldown_target = _MAX((parser.ushortval('T', 30)), 15U);
 
 /**
  * M888: Cooldown routine for the Anycubic Ultrabase (EXPERIMENTAL):

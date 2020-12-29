@@ -33,7 +33,7 @@
  * vendor name, download location, GitHub account, etc.
  */
 #ifndef DETAILED_BUILD_VERSION
-  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (davidramiro, Github)"
+  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (mithkr, Github)"
 #endif
 
 /**
@@ -88,7 +88,7 @@
  * providing the source code to your customers.)
  */
 #ifndef SOURCE_CODE_URL
-  #define SOURCE_CODE_URL "https://github.com/davidramiro/Marlin-Ai3M-2.0.x"
+  #define SOURCE_CODE_URL "https://github.com/mithkr/Marlin-Ai3M-2.0.x"
 #endif
 
 /**

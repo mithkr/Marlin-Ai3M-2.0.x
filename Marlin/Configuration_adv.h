@@ -2599,10 +2599,10 @@
   #define Y_SERIAL_TX_PIN  12
   #define Y_SERIAL_RX_PIN  12
 
-  #define Z_SERIAL_TX_PIN  20
-  #define Z_SERIAL_RX_PIN  20
-  #define Z2_SERIAL_TX_PIN  4
-  #define Z2_SERIAL_RX_PIN  4
+  //#define Z_SERIAL_TX_PIN  20
+  //#define Z_SERIAL_RX_PIN  20
+  //#define Z2_SERIAL_TX_PIN  4
+  //#define Z2_SERIAL_RX_PIN  4
 
   #define E0_SERIAL_TX_PIN 21
   #define E0_SERIAL_RX_PIN 21

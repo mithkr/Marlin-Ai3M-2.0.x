@@ -40,7 +40,7 @@
  * Defines the version of the Marlin-AI3M build. Not to be confused with
  * Marlin's own build number, e.g. 2.0.x.
  */
- #define CUSTOM_BUILD_VERSION "v2.0.2"
+ #define CUSTOM_BUILD_VERSION "v2.0.4"
  
 /**
  * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
@@ -48,7 +48,7 @@
  * version was tagged.
  */
 #ifndef STRING_DISTRIBUTION_DATE
-  #define STRING_DISTRIBUTION_DATE "2020-12-28"
+  #define STRING_DISTRIBUTION_DATE "2021-01-08"
 #endif
 
 /**

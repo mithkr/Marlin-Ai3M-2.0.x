@@ -509,9 +509,9 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // PID Autotune results for my i3 Mega-S
-  #define DEFAULT_Kp 13.15
-  #define DEFAULT_Ki 0.93
-  #define DEFAULT_Kd 46.58
+  #define DEFAULT_Kp 22.18
+  #define DEFAULT_Ki 2.6
+  #define DEFAULT_Kd 47.23
 
   // i3 Mega stock v5 hotend, 40W heater cartridge (3.6Ω @ 22°C)
   //#define  DEFAULT_Kp 15.94
@@ -569,9 +569,9 @@
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
 
   // PID Autotune results for my i3 Mega-S
-  #define DEFAULT_bedKp 142.19
-  #define DEFAULT_bedKi 25.52
-  #define DEFAULT_bedKd 198.01
+  #define DEFAULT_bedKp 62.76
+  #define DEFAULT_bedKi 12.16
+  #define DEFAULT_bedKd 215.94
 
   //Anycubic i3 Mega Ultrabase (0.9Ω @ 22°C)
   //#define DEFAULT_bedKp 251.78

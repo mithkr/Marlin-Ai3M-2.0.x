@@ -204,9 +204,6 @@ void GcodeSuite::M109() {
   if (got_temp)
     (void)thermalManager.wait_for_hotend(target_extruder, no_wait_for_cooling);
 
-  // flush the serial buffer after heating to prevent lockup by m105
-  //SERIAL_FLUSH();
-
   #ifdef ANYCUBIC_TFT_MODEL
     AnycubicTFT.CommandScan();
     AnycubicTFT.BedHeatingDone();

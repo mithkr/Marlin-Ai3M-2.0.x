@@ -2561,14 +2561,11 @@
    *   stepperY.intpol(0); \
    *   stepperY.en_pwm_mode(1); \     // Enable extremely quiet stepping
    *   stepperY.pwm_autoscale(1); \
+   *   stepperE0.en_spreadCycle(true); \
    * }
    */
-  #define TMC_ADV() { \
-    stepperE0.en_spreadCycle(true); \
-    stepperX.microsteps(16); \
-    stepperY.microsteps(16); \
-  }
-
+  #define TMC_ADV() { stepperE0.en_spreadCycle(true); } // switch extruder to SpreadCyle,
+                                                        // as not working reliable in StealthChop with Linear Advance
   /**
    * TMC2208/TMC2209 stepper drivers
    *

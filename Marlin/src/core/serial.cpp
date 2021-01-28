@@ -29,7 +29,7 @@ static PGMSTR(errormagic, "Error:");
 static PGMSTR(echomagic, "echo:");
 
 #if HAS_MULTI_SERIAL
-  int8_t serial_port_index = 0;
+  serial_index_t serial_port_index = 0;
 #endif
 
 void serialprintPGM(PGM_P str) {

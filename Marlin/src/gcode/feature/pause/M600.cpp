@@ -29,6 +29,11 @@
 #include "../../../module/motion.h"
 #include "../../../module/printcounter.h"
 
+#ifdef ANYCUBIC_TFT_MODEL
+  #include "../../../lcd/anycubic_TFT.h"
+  #include "../../../sd/cardreader.h"
+#endif
+
 #if HAS_MULTI_EXTRUDER
   #include "../../../module/tool_change.h"
 #endif
@@ -65,6 +70,29 @@
  *  Default values are used for omitted arguments.
  */
 void GcodeSuite::M600() {
+
+  #ifdef ANYCUBIC_TFT_MODEL
+    #ifdef SDSUPPORT
+      if (card.isPrinting()) { // are we printing from sd?
+        if (AnycubicTFT.ai3m_pause_state < 2) {
+          AnycubicTFT.ai3m_pause_state = 2;
+          #ifdef ANYCUBIC_TFT_DEBUG
+            SERIAL_ECHOPAIR(" DEBUG: M600 - AI3M Pause State set to: ", AnycubicTFT.ai3m_pause_state);
+            SERIAL_EOL();
+          #endif
+        }
+        #ifdef ANYCUBIC_TFT_DEBUG
+            SERIAL_ECHOLNPGM("DEBUG: Enter M600 TFTstate routine");
+        #endif
+        AnycubicTFT.TFTstate=ANYCUBIC_TFT_STATE_SDPAUSE_REQ; // enter correct display state to show resume button
+        #ifdef ANYCUBIC_TFT_DEBUG
+            SERIAL_ECHOLNPGM("DEBUG: Set TFTstate to SDPAUSE_REQ");
+        #endif
+      }
+    #endif
+  #endif
+
+  xyz_pos_t park_point = NOZZLE_PARK_POINT;
 
   #if ENABLED(MIXING_EXTRUDER)
     const int8_t target_e_stepper = get_target_e_stepper_from_command();
@@ -114,8 +142,6 @@ void GcodeSuite::M600() {
 
   // Initial retract before move to filament change position
   const float retract = -ABS(parser.seen('E') ? parser.value_axis_units(E_AXIS) : (PAUSE_PARK_RETRACT_LENGTH));
-
-  xyz_pos_t park_point NOZZLE_PARK_POINT;
 
   // Lift Z axis
   if (parser.seenval('Z')) park_point.z = parser.linearval('Z');

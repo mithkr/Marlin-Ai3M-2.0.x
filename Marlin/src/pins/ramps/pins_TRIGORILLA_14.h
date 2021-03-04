@@ -122,6 +122,20 @@
   #define SD_DETECT_PIN                       49
 #endif
 
+//
+// Temperature Sensors
+//
+#ifndef TEMP_2_PIN
+  #define TEMP_2_PIN                          12  // Analog Input
+#endif
+
+// SPI for Max6675 or Max31855 Thermocouple
+#if DISABLED(SDSUPPORT)
+  #define MAX6675_SS_PIN                      -1  // Don't use 53 if using Display/SD card
+#else
+  #define MAX6675_SS_PIN                      -1  // Don't use 49 (SD_DETECT_PIN)
+#endif
+
 #include "pins_RAMPS.h"
 
 //

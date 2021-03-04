@@ -86,6 +86,10 @@ fil_change_settings_t fc_settings[EXTRUDERS];
   #include "../sd/cardreader.h"
 #endif
 
+#ifdef ANYCUBIC_TFT_MODEL
+  #include "../lcd/anycubic_TFT.h"
+#endif
+
 #if ENABLED(EMERGENCY_PARSER)
   #define _PMSG(L) L##_M108
 #else
@@ -512,6 +516,15 @@ void wait_for_confirmation(const bool is_reload/*=false*/, const int8_t max_beep
     // Wait for the user to press the button to re-heat the nozzle, then
     // re-heat the nozzle, re-show the continue prompt, restart idle timers, start over
     if (nozzle_timed_out) {
+      #ifdef ANYCUBIC_TFT_MODEL
+        if (AnycubicTFT.ai3m_pause_state < 3) {
+          AnycubicTFT.ai3m_pause_state += 2;
+          #ifdef ANYCUBIC_TFT_DEBUG
+            SERIAL_ECHOPAIR(" DEBUG: NTO - AI3M Pause State set to: ", AnycubicTFT.ai3m_pause_state);
+            SERIAL_EOL();
+          #endif
+          }
+      #endif
       TERN_(HAS_LCD_MENU, lcd_pause_show_message(PAUSE_MESSAGE_HEAT));
       SERIAL_ECHO_MSG(_PMSG(STR_FILAMENT_CHANGE_HEAT));
 
@@ -542,6 +555,15 @@ void wait_for_confirmation(const bool is_reload/*=false*/, const int8_t max_beep
       TERN_(EXTENSIBLE_UI, ExtUI::onUserConfirmRequired_P(PSTR("Reheat finished.")));
       wait_for_user = true;
       nozzle_timed_out = false;
+      #ifdef ANYCUBIC_TFT_MODEL
+        if (AnycubicTFT.ai3m_pause_state > 3) {
+          AnycubicTFT.ai3m_pause_state -= 2;
+          #ifdef ANYCUBIC_TFT_DEBUG
+            SERIAL_ECHOPAIR(" DEBUG: NTO - AI3M Pause State set to: ", AnycubicTFT.ai3m_pause_state);
+            SERIAL_EOL();
+          #endif
+        }
+      #endif
 
       first_impatient_beep(max_beep_count);
     }
@@ -591,6 +613,15 @@ void resume_print(const float &slow_load_length/*=0*/, const float &fast_load_le
 
   // Re-enable the heaters if they timed out
   bool nozzle_timed_out = false;
+  #ifdef ANYCUBIC_TFT_MODEL
+    if (AnycubicTFT.ai3m_pause_state > 3) {
+      AnycubicTFT.ai3m_pause_state -= 2;
+      #ifdef ANYCUBIC_TFT_DEBUG
+        SERIAL_ECHOPAIR(" DEBUG: NTO - AI3M Pause State set to: ", AnycubicTFT.ai3m_pause_state);
+        SERIAL_EOL();
+      #endif
+      }
+  #endif
   HOTEND_LOOP() {
     nozzle_timed_out |= thermalManager.heater_idle[e].timed_out;
     thermalManager.reset_hotend_idle_timer(e);

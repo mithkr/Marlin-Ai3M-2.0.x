@@ -217,6 +217,10 @@
   #include "libs/L64XX/L64XX_Marlin.h"
 #endif
 
+#if ENABLED(ANYCUBIC_TFT_MODEL)
+  #include "lcd/anycubic_TFT.h"
+#endif
+
 #if ENABLED(PASSWORD_FEATURE)
   #include "feature/password/password.h"
 #endif
@@ -373,6 +377,25 @@ void disable_all_steppers() {
   disable_e_steppers();
 }
 
+#ifdef ENDSTOP_BEEP
+  void EndstopBeep() {
+    static char last_status=((READ(X_MIN_PIN)<<2)|(READ(Y_MIN_PIN)<<1)|READ(X_MAX_PIN));
+    static unsigned char now_status;
+
+    now_status=((READ(X_MIN_PIN)<<2)|(READ(Y_MIN_PIN)<<1)|READ(X_MAX_PIN))&0xff;
+
+    if(now_status<last_status) {
+      static millis_t endstop_ms = millis() + 300UL;
+      if (ELAPSED(millis(), endstop_ms)) {
+        buzzer.tone(60, 2000);
+      }
+    last_status=now_status;
+    } else if(now_status!=last_status) {
+      last_status=now_status;
+    }
+  }
+#endif
+
 #if ENABLED(G29_RETRY_AND_RECOVER)
 
   void event_probe_failure() {
@@ -486,6 +509,10 @@ void startOrResumeJob() {
  *  - Pulse FET_SAFETY_PIN if it exists
  */
 inline void manage_inactivity(const bool ignore_stepper_queue=false) {
+
+  #if ENABLED(ANYCUBIC_TFT_MODEL) && ENABLED(ANYCUBIC_FILAMENT_RUNOUT_SENSOR)
+    AnycubicTFT.FilamentRunout();
+  #endif
 
   if (queue.length < BUFSIZE) queue.get_available_commands();
 
@@ -729,6 +756,14 @@ void idle(TERN_(ADVANCED_PAUSE_FEATURE, bool no_stepper_sleep/*=false*/)) {
   // Handle SD Card insert / remove
   TERN_(SDSUPPORT, card.manage_media());
 
+  #ifdef ANYCUBIC_TFT_MODEL
+    AnycubicTFT.CommandScan();
+  #endif
+
+  #ifdef ENDSTOP_BEEP
+    EndstopBeep();
+  #endif
+
   // Handle USB Flash Drive insert / remove
   TERN_(USB_FLASH_DRIVE_SUPPORT, Sd2Card::idle());
 
@@ -794,6 +829,10 @@ void kill(PGM_P const lcd_error/*=nullptr*/, PGM_P const lcd_component/*=nullptr
   #else
     UNUSED(lcd_error);
     UNUSED(lcd_component);
+  #endif
+
+  #ifdef ANYCUBIC_TFT_MODEL
+    AnycubicTFT.KillTFT();
   #endif
 
   #if HAS_TFT_LVGL_UI
@@ -1012,6 +1051,13 @@ void setup() {
     SETUP_RUN(disableStepperDrivers());
   #endif
 
+  SERIAL_ECHOLNPGM("start");
+  SERIAL_ECHO_START();
+
+  #ifdef ANYCUBIC_TFT_MODEL
+    AnycubicTFT.Setup();
+  #endif
+
   #if HAS_TMC_SPI
     #if DISABLED(TMC_USE_SW_SPI)
       SETUP_RUN(SPI.begin());
@@ -1039,6 +1085,12 @@ void setup() {
   SERIAL_CHAR(' ');
   SERIAL_ECHOLNPGM(SHORT_BUILD_VERSION);
   SERIAL_EOL();
+
+  SERIAL_ECHOPGM(STR_MARLIN_AI3M);
+  SERIAL_CHAR(' ');
+  SERIAL_ECHOLNPGM(CUSTOM_BUILD_VERSION);
+  SERIAL_EOL();
+
   #if defined(STRING_DISTRIBUTION_DATE) && defined(STRING_CONFIG_H_AUTHOR)
     SERIAL_ECHO_MSG(
       " Last Updated: " STRING_DISTRIBUTION_DATE
@@ -1319,6 +1371,10 @@ void loop() {
     queue.advance();
 
     endstops.event_handler();
+
+    #ifdef ANYCUBIC_TFT_MODEL
+      AnycubicTFT.CommandScan();
+    #endif
 
     TERN_(HAS_TFT_LVGL_UI, printer_state_polling());
 

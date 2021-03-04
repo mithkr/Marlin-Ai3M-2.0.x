@@ -33,16 +33,22 @@
  * vendor name, download location, GitHub account, etc.
  */
 #ifndef DETAILED_BUILD_VERSION
-  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION
+  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (mithkr, Github)"
 #endif
 
+/**
+ * Defines the version of the Marlin-AI3M build. Not to be confused with
+ * Marlin's own build number, e.g. 2.0.x.
+ */
+ #define CUSTOM_BUILD_VERSION "v2.0.4"
+ 
 /**
  * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
 #ifndef STRING_DISTRIBUTION_DATE
-  #define STRING_DISTRIBUTION_DATE "2020-10-15"
+  #define STRING_DISTRIBUTION_DATE "2021-01-08"
 #endif
 
 /**
@@ -73,7 +79,7 @@
  * Define a generic printer name to be output to the LCD after booting Marlin.
  */
 #ifndef MACHINE_NAME
-  #define MACHINE_NAME "3D Printer"
+  #define MACHINE_NAME "Anycubic i3 Mega"
 #endif
 
 /**
@@ -82,7 +88,7 @@
  * providing the source code to your customers.)
  */
 #ifndef SOURCE_CODE_URL
-  #define SOURCE_CODE_URL "https://github.com/MarlinFirmware/Marlin"
+  #define SOURCE_CODE_URL "https://github.com/mithkr/Marlin-Ai3M-2.0.x"
 #endif
 
 /**

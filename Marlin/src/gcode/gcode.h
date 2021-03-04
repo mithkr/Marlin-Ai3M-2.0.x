@@ -255,6 +255,7 @@
  * M871 - Print/reset/clear first layer temperature offset values. (Requires PROBE_TEMP_COMPENSATION)
  * M192 - Wait for probe temp (Requires PROBE_TEMP_COMPENSATION)
  * M876 - Handle Prompt Response. (Requires HOST_PROMPT_SUPPORT and not EMERGENCY_PARSER)
+ * M888 - Ultrabase cooldown: Let the parts cooling fan hover above the finished print to cool down the bed. EXPERIMENTAL FEATURE!
  * M900 - Get or Set Linear Advance K-factor. (Requires LIN_ADVANCE)
  * M906 - Set or get motor current in milliamps using axis codes X, Y, Z, E. Report values if no axis codes given. (Requires at least one _DRIVER_TYPE defined as TMC2130/2160/5130/5160/2208/2209/2660 or L6470)
  * M907 - Set digital trimpot motor current using axis codes. (Requires a board with digital trimpots)
@@ -807,6 +808,8 @@ private:
   TERN_(HAS_BED_PROBE, static void M851());
 
   TERN_(SKEW_CORRECTION_GCODE, static void M852());
+
+   static void M888(); // M888: Ultrabase cooldown (EXPERIMENTAL)
 
   #if ENABLED(I2C_POSITION_ENCODERS)
     FORCE_INLINE static void M860() { I2CPEM.M860(); }

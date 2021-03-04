@@ -819,6 +819,8 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 871: M871(); break;                                  // M871: Print/reset/clear first layer temperature offset values
       #endif
 
+      case 888: M888(); break;                                    // M888: Ultrabase cooldown (EXPERIMENTAL)
+
       #if ENABLED(LIN_ADVANCE)
         case 900: M900(); break;                                  // M900: Set advance K factor.
       #endif

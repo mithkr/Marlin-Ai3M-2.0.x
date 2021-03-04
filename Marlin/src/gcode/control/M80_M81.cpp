@@ -29,6 +29,10 @@
 
 #include "../../inc/MarlinConfig.h"
 
+#if ENABLED(ANYCUBIC_TFT_MODEL)
+  #include "../../lcd/anycubic_TFT.h"
+#endif
+
 #if HAS_SUICIDE
   #include "../../MarlinCore.h"
 #endif
@@ -78,6 +82,11 @@
     #endif
 
     TERN_(HAS_LCD_MENU, ui.reset_status());
+
+    #ifdef ANYCUBIC_TFT_MODEL
+      AnycubicTFT.CommandScan();
+    #endif
+
   }
 
 #endif // PSU_CONTROL

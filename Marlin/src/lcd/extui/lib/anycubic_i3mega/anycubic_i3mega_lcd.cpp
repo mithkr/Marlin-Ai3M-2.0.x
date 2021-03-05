@@ -244,7 +244,7 @@ void AnycubicTFTClass::HandleSpecialMenu() {
         return;
         break;
 
-        #if ENABLED(PROBE_MANUALLY)
+        #if ENABLED(MESH_BED_LEVELING)
           case '0':
             switch (SelectedDirectory[2]) {
               case '1': // "<01ZUp0.1>"
@@ -314,7 +314,7 @@ void AnycubicTFTClass::HandleSpecialMenu() {
                 break;
             }
             break;
-        #else // if ENABLED(PROBE_MANUALLY)
+        #else // if ENABLED(MESH_BED_LEVELING)
           case '0':
             switch (SelectedDirectory[2]) {
               case '1': // "<01PrehtBed>"
@@ -357,7 +357,7 @@ void AnycubicTFTClass::HandleSpecialMenu() {
                 break;
             }
             break;
-            #endif  // PROBE_MANUALLY
+            #endif  // MESH_BED_LEVELING
 
           default:
             break;
@@ -401,7 +401,7 @@ void AnycubicTFTClass::RenderCurrentFileList() {
 
 void AnycubicTFTClass::RenderSpecialMenu(uint16_t selectedNumber) {
   switch (selectedNumber) {
-    #if ENABLED(PROBE_MANUALLY)
+    #if ENABLED(MESH_BED_LEVELING)
       case 0: // First Page
         SENDLINE_PGM("<01ZUp0.1>");
         SENDLINE_PGM("<Z Up 0.1>");
@@ -457,7 +457,7 @@ void AnycubicTFTClass::RenderSpecialMenu(uint16_t selectedNumber) {
         SENDLINE_PGM("<Exit>");
         break;
 
-        #endif // PROBE_MANUALLY
+        #endif // MESH_BED_LEVELING
 
       default:
         break;

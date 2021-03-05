@@ -33,14 +33,14 @@
  * vendor name, download location, GitHub account, etc.
  */
 #ifndef DETAILED_BUILD_VERSION
-  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (mithkr, Github)"
+  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " " STRING_CONFIG_H_AUTHOR
 #endif
 
 /**
  * Defines the version of the Marlin-AI3M build. Not to be confused with
  * Marlin's own build number, e.g. 2.0.x.
  */
- #define CUSTOM_BUILD_VERSION "v2.0.4"
+ #define CUSTOM_BUILD_VERSION GIT_REV
  
 /**
  * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
@@ -48,7 +48,7 @@
  * version was tagged.
  */
 #ifndef STRING_DISTRIBUTION_DATE
-  #define STRING_DISTRIBUTION_DATE "2021-01-08"
+  #define STRING_DISTRIBUTION_DATE LAST_BUILD_TIME
 #endif
 
 /**

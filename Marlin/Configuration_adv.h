@@ -2458,7 +2458,9 @@
    */
   #define STEALTHCHOP_XY
   #define STEALTHCHOP_Z
-  #define STEALTHCHOP_E
+  //switch extruder to SpreadCyle,
+  // as not working reliable in StealthChop with Linear Advance
+  //#define STEALTHCHOP_E
 
   /**
    * Optimize spreadCycle chopper parameters by using predefined parameter sets
